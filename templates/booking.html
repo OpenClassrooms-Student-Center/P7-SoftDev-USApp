@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{competition['name']}}</h2>
+<h5>
+    Spots available: {{competition['spotsAvailable']}}
+</h5>
+<form action="/book" method="post">
+    <input type="hidden" name="competition" value="{{competition['name']}}">
+    <label for="spots">How many spots?</label><input type="number" name="spots" id="input-spots" />
+    <button type="submit">Book</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to the GUDLFT Registration Portal!</h1>
+<h3>
+    Please enter your secretary email to continue:
+</h3>
+<form action="/login" method="post">
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="" />
+    <button type="submit">Enter</button>
+</form>
+{% endblock %}
