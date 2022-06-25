@@ -3,16 +3,20 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from provider import get_clubs, get_competitions
 
 app = Flask(__name__)
+# You should change the secret key in production!
 app.secret_key = "something_special"
 
 
 @app.route("/")
 def index():
+    """Homepage"""
     return render_template("index.html")
 
 
 @app.route("/login", methods=["POST"])
 def login():
+    """Use the session object to store the club information across requests"""
+
     clubs = get_clubs()
     email = request.form["email"]
 
@@ -24,6 +28,8 @@ def login():
 
 @app.route("/summary")
 def summary():
+    """Custom "homepage" for logged in users"""
+
     club = session["club"]
     competitions = get_competitions()
 
@@ -32,6 +38,7 @@ def summary():
 
 @app.route("/book/<competition>")
 def book(competition):
+    """Book spots in a competition page"""
     club = session["club"]
 
     competitions = get_competitions()
@@ -48,6 +55,7 @@ def book(competition):
 
 @app.route("/book", methods=["POST"])
 def book_spots():
+    """This page is only accessible through a POST request (form validation)"""
     club = session["club"]
     competitions = get_competitions()
 
@@ -65,6 +73,7 @@ def book_spots():
 
 @app.route("/logout")
 def logout():
+    """We delete session data in order to log the user out"""
     del session["club"]
     return redirect(url_for("index"))
 
